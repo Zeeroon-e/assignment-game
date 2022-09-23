@@ -1,4 +1,4 @@
-import './App.css'
+import './App.scss'
 import {Routes, Route} from 'react-router-dom';
 import PlayGameView from './Views/PlayGameView'
 import ResultView from './Views/ResultView';
