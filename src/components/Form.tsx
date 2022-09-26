@@ -11,6 +11,8 @@ function Form() {
     const [secondPlayerGoals, setSecondPlayerGoals] = useState(Number)
     const [SubmitedTime, setSubmitedTime] = useState('')
     const [result, setResult] = useState('')
+    const [secondPresult, setSecondPResult] = useState('')
+
     const [games, setGames] = useState({});
     const navigate = useNavigate();
     let gameResult: [] = [];
@@ -20,14 +22,14 @@ function Form() {
        console.log(firstPlayer);
        
 
-       let gamePlayed = [{
-           firstplayer: firstPlayer,
-           firstplayergoals: firstPlayerGoals,
-           secondplayer: secondPlayer,
-           secondplayergoals: secondPlayerGoals,
-           result: result,
-           date: SubmitedTime         
-        }]
+       let gamePlayed = {
+           date: SubmitedTime,
+           players: [
+             {name: firstPlayer, goals: firstPlayerGoals, result: result},
+             {name: secondPlayer, goals: secondPlayerGoals, result: secondPresult}
+           ],
+                   
+        }
         
         /* gameResult.push(gamePlayed) */
         console.log(games);
@@ -40,14 +42,19 @@ function Form() {
 
     useEffect(() => {
         if (firstPlayerGoals > secondPlayerGoals) {
-          let difference = firstPlayerGoals - secondPlayerGoals;
-          setResult(firstPlayer + ' won the game by: ' + difference + ' Point. ' + 'Result: ' + firstPlayerGoals + '-' + secondPlayerGoals)
+          setResult('won')
         } else {
-          let difference = secondPlayerGoals - firstPlayerGoals;
-          setResult(secondPlayer + ' won the game by: ' + difference + ' Point. ' + 'Result: ' + secondPlayerGoals + '-' + firstPlayerGoals)
-       } 
-        if (firstPlayerGoals == secondPlayerGoals) {
-          setResult('The game ended up in a tie')
+          setResult('lost')
+        }
+        if (secondPlayerGoals > firstPlayerGoals) {
+          setSecondPResult('won')
+        }
+        else {
+          setSecondPResult('lost')
+        }  
+        if (secondPlayerGoals == firstPlayerGoals) {
+          setSecondPResult('tie')
+          setResult('tie')
         }
     })
 
