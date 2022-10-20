@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router'
 import '../styles/form.scss'
 
 
-
+type Game = {
+  date: string;
+  players: [{name: string; goals: number; result: string;}, {name: string; goals: number; result: string;}]
+}
 function Form() {
     const [firstPlayer, setFirstPlayer] = useState('')
     const [firstPlayerGoals, setFirstPlayerGoals] = useState(Number)
@@ -13,29 +16,30 @@ function Form() {
     const [result, setResult] = useState('')
     const [secondPresult, setSecondPResult] = useState('')
 
-    const [games, setGames] = useState({});
+    const [games, setGames] = useState([{}]);
     const navigate = useNavigate();
     let gameResult: [] = [];
     
     const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
        e.preventDefault();
-       console.log(firstPlayer);
        
+       const oldInfo = JSON.parse(localStorage.getItem('data') || '[]');
 
-       let gamePlayed = {
+       let gamePlayed: Game = {
            date: SubmitedTime,
            players: [
              {name: firstPlayer, goals: firstPlayerGoals, result: result},
              {name: secondPlayer, goals: secondPlayerGoals, result: secondPresult}
-           ]
-                   
+           ],          
         }
-        if (localStorage.getItem('data') == null) {
-          localStorage.setItem('data', '[]');
-        }
-        let old_data = JSON.parse(localStorage.getItem('data'));
-        old_data.push(gamePlayed)
-        localStorage.setItem('data', JSON.stringify(old_data)
+        
+        oldInfo.push(gamePlayed)
+        
+        setGames([...games, gamePlayed])
+        localStorage.setItem('games', JSON.stringify(games))
+        console.log(games);
+        
+        
     }
 
     useEffect(() => {
