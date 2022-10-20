@@ -27,17 +27,15 @@ function Form() {
            players: [
              {name: firstPlayer, goals: firstPlayerGoals, result: result},
              {name: secondPlayer, goals: secondPlayerGoals, result: secondPresult}
-           ],
+           ]
                    
         }
-        
-        /* gameResult.push(gamePlayed) */
-        console.log(games);
-        
-        
-        localStorage.setItem(SubmitedTime, JSON.stringify(gamePlayed))
-        console.log(gameResult);
-        
+        if (localStorage.getItem('data') == null) {
+          localStorage.setItem('data', '[]');
+        }
+        let old_data = JSON.parse(localStorage.getItem('data'));
+        old_data.push(gamePlayed)
+        localStorage.setItem('data', JSON.stringify(old_data)
     }
 
     useEffect(() => {
@@ -56,7 +54,7 @@ function Form() {
           setSecondPResult('tie')
           setResult('tie')
         }
-    })
+    });
 
   return (
     <>
