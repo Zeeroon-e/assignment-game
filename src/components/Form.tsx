@@ -12,107 +12,109 @@ function Form() {
     const [SubmitedTime, setSubmitedTime] = useState('')
     const [result, setResult] = useState('')
     const [secondPresult, setSecondPResult] = useState('')
+    const [staticGames, setStaticGames] = useState([{
+      date: '2022-10-18T14:56' ,
+      fname: 'adam',
+      fgoals: 3,
+      fresult: 'won',
+      sname: 'robert',
+      sgoals: 2,
+      sresult: 'lost'
+    },
+
+    {
+      date: '2022-10-18T14:56' ,
+      fname: 'robert',
+      fgoals: 6,
+      fresult: 'lost',
+      sname: 'adam',
+      sgoals: 8,
+      sresult: 'won'  
+    },
+    {
+      date: '2022-10-18T14:56' ,
+      fname: 'chia',
+      fgoals: 6,
+      fresult: 'won',
+      sname: 'adam',
+      sgoals: 3,
+      sresult: 'lost'  
+    },
+    {
+      date: '2022-10-18T14:56' ,
+      fname: 'chia',
+      fgoals: 6,
+      fresult: 'lost',
+      sname: 'robert',
+      sgoals: 9,
+      sresult: 'won'  
+    },
+    {
+      date: '2022-10-18T14:56' ,
+      fname: 'ahmed',
+      fgoals: 6,
+      fresult: 'lost',
+      sname: 'robert',
+      sgoals: 9,
+      sresult: 'won'  
+    },
+    {
+      date: '2022-10-18T14:56' ,
+      fname: 'ulf',
+      fgoals: 1,
+      fresult: 'lost',
+      sname: 'johan',
+      sgoals: 2,
+      sresult: 'won'
+    },
+
+    {
+      date: '2022-10-18T14:56' ,
+      fname: 'chia',
+      fgoals: 6,
+      fresult: 'lost',
+      sname: 'ulf',
+      sgoals: 8,
+      sresult: 'won'  
+    },
+    {
+      date: '2022-10-18T14:56' ,
+      fname: 'ahmed',
+      fgoals: 6,
+      fresult: 'won',
+      sname: 'johan',
+      sgoals: 3,
+      sresult: 'lost'  
+    },
+    {
+      date: '2022-10-18T14:56' ,
+      fname: 'ahmed',
+      fgoals: 6,
+      fresult: 'lost',
+      sname: 'chia',
+      sgoals: 9,
+      sresult: 'won'  
+    },
+    {
+      date: '2022-10-18T14:56' ,
+      fname: 'ulf',
+      fgoals: 6,
+      fresult: 'lost',
+      sname: 'adam',
+      sgoals: 9,
+      sresult: 'won'  
+    },
+  ])
 
     const navigate = useNavigate();
     // Static data for games
-    let staticGames: any = [{
-        date: '2022-10-18T14:56' ,
-        fname: 'adam',
-        fgoals: 3,
-        fresult: 'won',
-        sname: 'robert',
-        sgoals: 2,
-        sresult: 'lost'
-      },
-
-      {
-        date: '2022-10-18T14:56' ,
-        fname: 'robert',
-        fgoals: 6,
-        fresult: 'lost',
-        sname: 'adam',
-        sgoals: 8,
-        sresult: 'won'  
-      },
-      {
-        date: '2022-10-18T14:56' ,
-        fname: 'chia',
-        fgoals: 6,
-        fresult: 'won',
-        sname: 'adam',
-        sgoals: 3,
-        sresult: 'lost'  
-      },
-      {
-        date: '2022-10-18T14:56' ,
-        fname: 'chia',
-        fgoals: 6,
-        fresult: 'lost',
-        sname: 'robert',
-        sgoals: 9,
-        sresult: 'won'  
-      },
-      {
-        date: '2022-10-18T14:56' ,
-        fname: 'ahmed',
-        fgoals: 6,
-        fresult: 'lost',
-        sname: 'robert',
-        sgoals: 9,
-        sresult: 'won'  
-      },
-      {
-        date: '2022-10-18T14:56' ,
-        fname: 'ulf',
-        fgoals: 1,
-        fresult: 'lost',
-        sname: 'johan',
-        sgoals: 2,
-        sresult: 'won'
-      },
-
-      {
-        date: '2022-10-18T14:56' ,
-        fname: 'chia',
-        fgoals: 6,
-        fresult: 'lost',
-        sname: 'ulf',
-        sgoals: 8,
-        sresult: 'won'  
-      },
-      {
-        date: '2022-10-18T14:56' ,
-        fname: 'ahmed',
-        fgoals: 6,
-        fresult: 'won',
-        sname: 'johan',
-        sgoals: 3,
-        sresult: 'lost'  
-      },
-      {
-        date: '2022-10-18T14:56' ,
-        fname: 'ahmed',
-        fgoals: 6,
-        fresult: 'lost',
-        sname: 'chia',
-        sgoals: 9,
-        sresult: 'won'  
-      },
-      {
-        date: '2022-10-18T14:56' ,
-        fname: 'ulf',
-        fgoals: 6,
-        fresult: 'lost',
-        sname: 'adam',
-        sgoals: 9,
-        sresult: 'won'  
-      },
-    ]
+    
     let games: any = JSON.parse(localStorage.getItem('games') || '[]');
     
-    games.push(staticGames)
-    
-    localStorage.setItem('games', JSON.stringify(staticGames))
+    if (games == '') {
+      localStorage.setItem('games', JSON.stringify(staticGames))
+    }
+     
     
     type GameInterface = {
       date: string
@@ -139,6 +141,7 @@ function Form() {
           sresult: secondPresult        
         }
         let games: any = JSON.parse(localStorage.getItem('games') || '[]');
+        // setStaticGames([...staticGames , gamePlayed])
         games.push(gamePlayed)
         // localStorage.setItem('games', JSON.stringify(games))
         localStorage.setItem('games', JSON.stringify(games))
