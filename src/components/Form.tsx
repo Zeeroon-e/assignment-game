@@ -14,7 +14,9 @@ function Form() {
     const [secondPresult, setSecondPResult] = useState('')
 
     const navigate = useNavigate();
+    
     let games: any = JSON.parse(localStorage.getItem('games') || '[]');
+
     type GameInterface = {
       date: string
       fname: string
