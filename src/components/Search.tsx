@@ -9,7 +9,7 @@ function Search() {
     const navigate = useNavigate();
     let data: any = JSON.parse(localStorage.getItem('games') || '[]')
     
-    
+    let reversedData = data.reverse();
     function toggledBtn(event: any) {
       if (event.target.checked) {
 
@@ -45,7 +45,7 @@ function Search() {
 
       </section>
       <section className='display-section'>
-        {data.filter((val: any) => {
+        {reversedData.filter((val: any) => {
           if (searchedValue == '') {
             return val
           } 
