@@ -1,6 +1,6 @@
-
-import React, { useState } from 'react'
-import '../styles/search.scss'
+import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from 'react';
+import '../styles/search.scss';
 function Search() {
     const [searchedValue, setSearchedValue] = useState('');
     const [searchByResult, setSearchByResult] = useState('');
@@ -22,6 +22,8 @@ function Search() {
       
     }
     console.log(searchByResult);
+    
+    console.log(uuidv4());
     
     // function searchBtn (){
     
@@ -76,8 +78,8 @@ function Search() {
           }
           
         }
-      }).map((item ) => (
-        <p key={item.date}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} </p>
+      }).map((item: any ) => (
+        <p key={uuidv4()}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} </p>
       ))}
       </section>
     </div>

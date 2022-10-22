@@ -15,7 +15,7 @@ function Form() {
 
     const navigate = useNavigate();
     // Static data for games
-    let staticGames: GameInterface = [{
+    let staticGames: any = [{
         date: '2022-10-18T14:56' ,
         fname: 'adam',
         fgoals: 3,
@@ -109,8 +109,9 @@ function Form() {
       },
     ]
     let games: any = JSON.parse(localStorage.getItem('games') || '[]');
-
+    
     games.push(staticGames)
+    localStorage.setItem('games', JSON.stringify(staticGames))
     type GameInterface = {
       date: string
       fname: string
