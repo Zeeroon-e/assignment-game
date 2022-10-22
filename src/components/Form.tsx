@@ -109,9 +109,8 @@ function Form() {
       },
     ]
     let games: any = JSON.parse(localStorage.getItem('games') || '[]');
-    
     games.push(staticGames)
-    localStorage.setItem('games', JSON.stringify(staticGames))
+
     type GameInterface = {
       date: string
       fname: string
@@ -136,14 +135,15 @@ function Form() {
           sgoals: secondPlayerGoals, 
           sresult: secondPresult        
         }
-        
+        let games: any = JSON.parse(localStorage.getItem('games') || '[]');
         games.push(gamePlayed)
+        // localStorage.setItem('games', JSON.stringify(games))
         localStorage.setItem('games', JSON.stringify(games))
-        
         
     }
 
     useEffect(() => {
+      
         if (firstPlayerGoals > secondPlayerGoals) {
           setResult('won')
         } else {
