@@ -14,9 +14,103 @@ function Form() {
     const [secondPresult, setSecondPResult] = useState('')
 
     const navigate = useNavigate();
-    
+    // Static data for games
+    let staticGames: GameInterface = [{
+        date: '2022-10-18T14:56' ,
+        fname: 'adam',
+        fgoals: 3,
+        fresult: 'won',
+        sname: 'robert',
+        sgoals: 2,
+        sresult: 'lost'
+      },
+
+      {
+        date: '2022-10-18T14:56' ,
+        fname: 'robert',
+        fgoals: 6,
+        fresult: 'lost',
+        sname: 'adam',
+        sgoals: 8,
+        sresult: 'won'  
+      },
+      {
+        date: '2022-10-18T14:56' ,
+        fname: 'chia',
+        fgoals: 6,
+        fresult: 'won',
+        sname: 'adam',
+        sgoals: 3,
+        sresult: 'lost'  
+      },
+      {
+        date: '2022-10-18T14:56' ,
+        fname: 'chia',
+        fgoals: 6,
+        fresult: 'lost',
+        sname: 'robert',
+        sgoals: 9,
+        sresult: 'won'  
+      },
+      {
+        date: '2022-10-18T14:56' ,
+        fname: 'ahmed',
+        fgoals: 6,
+        fresult: 'lost',
+        sname: 'robert',
+        sgoals: 9,
+        sresult: 'won'  
+      },
+      {
+        date: '2022-10-18T14:56' ,
+        fname: 'ulf',
+        fgoals: 1,
+        fresult: 'lost',
+        sname: 'johan',
+        sgoals: 2,
+        sresult: 'won'
+      },
+
+      {
+        date: '2022-10-18T14:56' ,
+        fname: 'chia',
+        fgoals: 6,
+        fresult: 'lost',
+        sname: 'ulf',
+        sgoals: 8,
+        sresult: 'won'  
+      },
+      {
+        date: '2022-10-18T14:56' ,
+        fname: 'ahmed',
+        fgoals: 6,
+        fresult: 'won',
+        sname: 'johan',
+        sgoals: 3,
+        sresult: 'lost'  
+      },
+      {
+        date: '2022-10-18T14:56' ,
+        fname: 'ahmed',
+        fgoals: 6,
+        fresult: 'lost',
+        sname: 'chia',
+        sgoals: 9,
+        sresult: 'won'  
+      },
+      {
+        date: '2022-10-18T14:56' ,
+        fname: 'ulf',
+        fgoals: 6,
+        fresult: 'lost',
+        sname: 'adam',
+        sgoals: 9,
+        sresult: 'won'  
+      },
+    ]
     let games: any = JSON.parse(localStorage.getItem('games') || '[]');
 
+    games.push(staticGames)
     type GameInterface = {
       date: string
       fname: string

@@ -76,8 +76,8 @@ function Search() {
           }
           
         }
-      }).map(item => (
-        <p> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} </p>
+      }).map((item ) => (
+        <p key={item.date}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} </p>
       ))}
       </section>
     </div>
