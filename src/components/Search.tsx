@@ -1,10 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router'
 import '../styles/search.scss';
 function Search() {
     const [searchedValue, setSearchedValue] = useState('');
     const [searchByResult, setSearchByResult] = useState('');
     
+    const navigate = useNavigate();
     let data: any = JSON.parse(localStorage.getItem('games') || '[]')
     
     
@@ -21,32 +23,14 @@ function Search() {
       }
       
     }
-    console.log(searchByResult);
     
-    console.log(uuidv4());
-    
-    // function searchBtn (){
-    
-
-      
-    //   /* data.filter((val) => {
-    //     if (searchedValue == '') {
-    //       return val
-    //     }
-    //     else if (val.fname.includes(searchedValue) || val.sname.includes(searchedValue) ) {
-    //       return val
-    //     }
-    //   }).map(item => {
-    //     console.log(item);
-    //   }) */
-    //   // let searchedArray = data.find(({fname, sname}) => fname || sname == searchedValue)
- 
-    //   // console.log(data);
-      
-    // }
     
     
   return (
+  <>
+    <div className='btn-container'>
+      <button onClick={() => navigate('/')}>Add new game</button>
+    </div>
     <div className='search-container'>
       <section className='search-section'>
         <input type="text" placeholder='Search for player name' onChange={(e) => setSearchedValue(e.target.value)}/>
@@ -62,27 +46,28 @@ function Search() {
       </section>
       <section className='display-section'>
         {data.filter((val: any) => {
-        if (searchedValue == '') {
-          return val
-        } 
-        
-        else if (val.fname.includes(searchedValue) || val.sname.includes(searchedValue) ) {
-          
-          if (val.fname.includes(searchedValue) && val.fresult.includes(searchByResult)) {
+          if (searchedValue == '') {
             return val
+          } 
+          
+          else if (val.fname.includes(searchedValue) || val.sname.includes(searchedValue) ) {
+            
+            if (val.fname.includes(searchedValue) && val.fresult.includes(searchByResult)) {
+              return val
+              
+            }
+            if (val.sname.includes(searchedValue) && val.sresult.includes(searchByResult)) {
+              return val
+              
+            }
             
           }
-          if (val.sname.includes(searchedValue) && val.sresult.includes(searchByResult)) {
-            return val
-            
-          }
-          
-        }
-      }).map((item: any ) => (
-        <p key={uuidv4()}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} </p>
-      ))}
+        }).map((item: any ) => (
+          <p key={uuidv4()}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} </p>
+          ))}
       </section>
     </div>
+  </>
   )
 }
 

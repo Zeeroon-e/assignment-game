@@ -109,8 +109,11 @@ function Form() {
       },
     ]
     let games: any = JSON.parse(localStorage.getItem('games') || '[]');
+    
     games.push(staticGames)
-
+    
+    localStorage.setItem('games', JSON.stringify(staticGames))
+    
     type GameInterface = {
       date: string
       fname: string
