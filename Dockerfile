@@ -6,8 +6,8 @@ WORKDIR /app
 
 RUN npm install -g http-server
 # Kopiera package.json -> in till mappen "app" i image
-COPY package.json package-lock.json ./
-
+# COPY package.json package-lock.json ./
+COPY package*.json ./
 #installera npm-paket
 
 RUN npm install
@@ -23,7 +23,7 @@ EXPOSE 8080
 
 #starta en webbserver som serverar de statiska filerna i /app/dist
 # alternativ server : Nginx
-CMD ["http-server", "dist"]
+CMD ["http-server", "dist", "-p 8080"]
 # skapar en image
 # docker build -t assignment-game:latest .
 # skapar en container i respektive port
