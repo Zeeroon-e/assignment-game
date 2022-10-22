@@ -5,12 +5,21 @@
     justify-content: center;
     text-align: center;
     flex-direction: column;
+    .search-section{
+        
+    }
 }
-
+.src-btn{
+    width: 5vw;
+    height: 2.5vh;
+    background-color: rgb(65, 91, 209);
+}
 .display-section{
     margin-top: 100px;
     background-color: aliceblue;
     p{
         border-bottom: 1px solid black;
     }
+
+    
 }
