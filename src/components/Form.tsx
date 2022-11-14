@@ -104,10 +104,12 @@ function Form() {
       sgoals: 9,
       sresult: 'won'  
     },
-  ])
+  ]);
 
     const navigate = useNavigate();
     // Static data for games
+    // correct date
+    // new Date().toLocaleString();
     
     let games: any = JSON.parse(localStorage.getItem('games') || '[]');
     
