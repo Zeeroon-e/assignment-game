@@ -6,19 +6,42 @@ function Search() {
     const [searchedValue, setSearchedValue] = useState('');
     const [searchByResult, setSearchByResult] = useState('');
     const [latest, setLatest] = useState(false);
-    const [testData, setTestData] = useState();
+
+    let data: any = JSON.parse(localStorage.getItem('games') || '[]')
+    const [testData, setTestData] = useState(data);
     
 
     
     const navigate = useNavigate();
-    let data: any = JSON.parse(localStorage.getItem('games') || '[]')
+    
     
 
+     let filteredData = data.filter((val: any ) => {
+        if (searchedValue == '') {
+          return val
+        } 
+        
+        else if (val.fname.includes(searchedValue) || val.sname.includes(searchedValue) ) {
+          
+          if (val.fname.includes(searchedValue) && val.fresult.includes(searchByResult)) {
+            
+            return val
+          }
+          if (val.sname.includes(searchedValue) && val.sresult.includes(searchByResult)) {
+
+            return val 
+          }
+          
+        }
+     })
+
+     
     function toggledBtn(event: any) {
       if (event.target.checked) {
 
         console.log('won');
         setSearchByResult('won')
+        
 
       } else {
 
@@ -32,15 +55,24 @@ function Search() {
       console.log('btnclicked');
       if (latest == false) {
         setLatest(true)
-       
-      } else {
+        
+      } else if (latest == true) {
+        const size = 10;
+        const newData = filteredData.slice(0,size)
+        setTestData(newData)
         setLatest(false)
         
       }
       
     }
+
+    function SearchButton() {
+      
+    }
     
-  
+    
+    
+    
     
     
   
@@ -66,39 +98,24 @@ function Search() {
     <div className='search-container'>
       <section className='search-section'>
         <input type="text" placeholder='Search for player name' onChange={(e) => setSearchedValue(e.target.value)}/>
-        <p> u must search name first and then <br /> toggle between the colors! <br /> 🟩 = won <br /> 🟥 = lost </p>
+        <p> u must search name first and then <br /> toggle between the colors! <br /> then press search to update your search! <br /> 🟩 = won <br /> 🟥 = lost </p>
         <label className='switch'>
           <input type="checkbox" value={searchByResult} onClick={toggledBtn}/>
           <span className='slider round'></span>
         </label>
-        <button onClick={latestBtn}>10 latest </button>
+        <label htmlFor="latest">10 Latest</label> 
+        <input type="checkbox" name="latest" id="latestTen" onClick={latestBtn} />
+        <button >10 latest </button>
+        <button onClick={SearchButton}>Search </button>
         
         
 
       </section>
       <section className='display-section'>
-        {data.filter((val: any) =>{
-          if (searchedValue == '') {
-            return val
-          } 
-          
-          else if (val.fname.includes(searchedValue) || val.sname.includes(searchedValue) ) {
-            
-            if (val.fname.includes(searchedValue) && val.fresult.includes(searchByResult)) {
-              
-              
-              return val
-            }
-            if (val.sname.includes(searchedValue) && val.sresult.includes(searchByResult)) {
-
-              return val 
-            }
-            
-          }
-        }).map((item: any )  => (
-          
-          <p key={uuidv4()}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} <br />  </p>
-          ))}
+        {testData ? (
+            testData.map((item: {date: string; fname:string; sname: string; fgoals: number; sgoals: number; fresult: string; sresult: string;}) => (
+              <p key={uuidv4()}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} <br />  </p>            
+        ))): 'Please search to get data'}
       </section>
     </div>
   </>
