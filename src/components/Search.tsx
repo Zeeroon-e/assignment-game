@@ -6,6 +6,7 @@ function Search() {
     const [searchedValue, setSearchedValue] = useState('');
     const [searchByResult, setSearchByResult] = useState('');
     const [latest, setLatest] = useState(false);
+    const [changeTxt, setChangeTxt] = useState('all games');
 
     let data: any = JSON.parse(localStorage.getItem('games') || '[]')
     const [testData, setTestData] = useState(data);
@@ -14,7 +15,17 @@ function Search() {
     
     const navigate = useNavigate();
     
-    
+    if (data) {
+      data.sort((a: any, b: any) => {
+        if (a.date < b.date) {
+          return 1
+        } else if (a.date > b.date) {
+            return -1;
+        } else {
+            return 0;
+        }
+      })
+    }
 
      let filteredData = data.filter((val: any ) => {
         if (searchedValue == '') {
@@ -53,20 +64,30 @@ function Search() {
 
     function latestBtn() {
       console.log('btnclicked');
+      
       if (latest == false) {
+        
         setLatest(true)
+        setChangeTxt('10 latest Games')
         
       } else if (latest == true) {
-        const size = 10;
-        const newData = filteredData.slice(0,size)
-        setTestData(newData)
-        setLatest(false)
         
+        setLatest(false)
+        setChangeTxt('all games')
       }
       
     }
 
     function SearchButton() {
+      if (latest == false) {
+        setTestData(filteredData)
+      }
+
+      if (latest == true) {
+        const size = 10;
+        let newData = filteredData.slice(0,size)
+        setTestData(newData)
+      }
       
     }
     
@@ -76,17 +97,7 @@ function Search() {
     
     
   
-    if (data) {
-      data.sort((a: any, b: any) => {
-        if (a.date < b.date) {
-          return 1
-        } else if (a.date > b.date) {
-            return -1;
-        } else {
-            return 0;
-        }
-      })
-    }
+    
     
     
     
@@ -103,9 +114,8 @@ function Search() {
           <input type="checkbox" value={searchByResult} onClick={toggledBtn}/>
           <span className='slider round'></span>
         </label>
-        <label htmlFor="latest">10 Latest</label> 
-        <input type="checkbox" name="latest" id="latestTen" onClick={latestBtn} />
-        <button >10 latest </button>
+        
+        <button onClick={latestBtn} >{changeTxt}</button>
         <button onClick={SearchButton}>Search </button>
         
         
