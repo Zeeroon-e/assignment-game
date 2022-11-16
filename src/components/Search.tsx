@@ -5,25 +5,45 @@ import '../styles/search.scss';
 function Search() {
     const [searchedValue, setSearchedValue] = useState('');
     const [searchByResult, setSearchByResult] = useState('');
+    const [latest, setLatest] = useState(false);
+    const [testData, setTestData] = useState();
+    
+
     
     const navigate = useNavigate();
     let data: any = JSON.parse(localStorage.getItem('games') || '[]')
     
-    
+
     function toggledBtn(event: any) {
       if (event.target.checked) {
 
-        console.log('button is checked');
+        console.log('won');
         setSearchByResult('won')
 
       } else {
 
-        console.log('button is unchecked');
+        console.log('lost');
         setSearchByResult('lost')
       }
       
     }
 
+    function latestBtn() {
+      console.log('btnclicked');
+      if (latest == false) {
+        setLatest(true)
+       
+      } else {
+        setLatest(false)
+        
+      }
+      
+    }
+    
+  
+    
+    
+  
     if (data) {
       data.sort((a: any, b: any) => {
         if (a.date < b.date) {
@@ -51,7 +71,7 @@ function Search() {
           <input type="checkbox" value={searchByResult} onClick={toggledBtn}/>
           <span className='slider round'></span>
         </label>
-        <button>10 latest </button>
+        <button onClick={latestBtn}>10 latest </button>
         
         
 
@@ -65,16 +85,18 @@ function Search() {
           else if (val.fname.includes(searchedValue) || val.sname.includes(searchedValue) ) {
             
             if (val.fname.includes(searchedValue) && val.fresult.includes(searchByResult)) {
-              return val 
               
+              
+              return val
             }
             if (val.sname.includes(searchedValue) && val.sresult.includes(searchByResult)) {
-              return val
-              
+
+              return val 
             }
             
           }
-        }).map((item: any ) => (
+        }).map((item: any )  => (
+          
           <p key={uuidv4()}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} <br />  </p>
           ))}
       </section>
