@@ -9,7 +9,7 @@ function Search() {
     const navigate = useNavigate();
     let data: any = JSON.parse(localStorage.getItem('games') || '[]')
     
-    let reversedData = data.reverse();
+    
     function toggledBtn(event: any) {
       if (event.target.checked) {
 
@@ -22,6 +22,18 @@ function Search() {
         setSearchByResult('lost')
       }
       
+    }
+
+    if (data) {
+      data.sort((a: any, b: any) => {
+        if (a.date < b.date) {
+          return 1
+        } else if (a.date > b.date) {
+            return -1;
+        } else {
+            return 0;
+        }
+      })
     }
     
     
@@ -39,13 +51,13 @@ function Search() {
           <input type="checkbox" value={searchByResult} onClick={toggledBtn}/>
           <span className='slider round'></span>
         </label>
-        
+        <button>10 latest </button>
         
         
 
       </section>
       <section className='display-section'>
-        {reversedData.filter((val: any) => {
+        {data.filter((val: any) =>{
           if (searchedValue == '') {
             return val
           } 
@@ -53,7 +65,7 @@ function Search() {
           else if (val.fname.includes(searchedValue) || val.sname.includes(searchedValue) ) {
             
             if (val.fname.includes(searchedValue) && val.fresult.includes(searchByResult)) {
-              return val
+              return val 
               
             }
             if (val.sname.includes(searchedValue) && val.sresult.includes(searchByResult)) {
@@ -63,7 +75,7 @@ function Search() {
             
           }
         }).map((item: any ) => (
-          <p key={uuidv4()}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} </p>
+          <p key={uuidv4()}> Date Played <br /> {item.date} <br />{item.fname} vs {item.sname} <br /> {item.fgoals} | {item.sgoals} <br /> {item.fresult} | {item.sresult} <br />  </p>
           ))}
       </section>
     </div>

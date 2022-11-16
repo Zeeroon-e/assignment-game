@@ -19,7 +19,8 @@ function Form() {
       fresult: 'won',
       sname: 'robert',
       sgoals: 2,
-      sresult: 'lost'
+      sresult: 'lost',
+      id: 0
     },
 
     {
@@ -29,16 +30,18 @@ function Form() {
       fresult: 'lost',
       sname: 'adam',
       sgoals: 8,
-      sresult: 'won'  
+      sresult: 'won',
+      id: 1  
     },
     {
-      date: '2022-10-18T14:56' ,
+      date: '2022-11-28T14:56' ,
       fname: 'chia',
       fgoals: 6,
       fresult: 'won',
       sname: 'adam',
       sgoals: 3,
-      sresult: 'lost'  
+      sresult: 'lost',
+      id: 2  
     },
     {
       date: '2022-10-18T14:56' ,
@@ -47,16 +50,18 @@ function Form() {
       fresult: 'lost',
       sname: 'robert',
       sgoals: 9,
-      sresult: 'won'  
+      sresult: 'won',
+      id: 3  
     },
     {
-      date: '2022-10-18T14:56' ,
+      date: '2022-10-01T14:56' ,
       fname: 'ahmed',
       fgoals: 6,
       fresult: 'lost',
       sname: 'robert',
       sgoals: 9,
-      sresult: 'won'  
+      sresult: 'won',
+      id: 4  
     },
     {
       date: '2022-10-18T14:56' ,
@@ -65,51 +70,69 @@ function Form() {
       fresult: 'lost',
       sname: 'johan',
       sgoals: 2,
-      sresult: 'won'
+      sresult: 'won',
+      id: 5
     },
 
     {
-      date: '2022-10-18T14:56' ,
+      date: '2022-10-05T14:56' ,
       fname: 'chia',
       fgoals: 6,
       fresult: 'lost',
       sname: 'ulf',
       sgoals: 8,
-      sresult: 'won'  
+      sresult: 'won',
+      id: 6  
     },
     {
-      date: '2022-10-18T14:56' ,
+      date: '2022-10-22T14:56' ,
       fname: 'ahmed',
       fgoals: 6,
       fresult: 'won',
       sname: 'johan',
       sgoals: 3,
-      sresult: 'lost'  
+      sresult: 'lost',
+      id: 7  
     },
     {
-      date: '2022-10-18T14:56' ,
+      date: '2022-10-19T14:56' ,
       fname: 'ahmed',
       fgoals: 6,
       fresult: 'lost',
       sname: 'chia',
       sgoals: 9,
-      sresult: 'won'  
+      sresult: 'won',
+      id: 8  
     },
     {
-      date: '2022-10-18T14:56' ,
+      date: '2022-10-14T14:56' ,
       fname: 'ulf',
       fgoals: 6,
       fresult: 'lost',
       sname: 'adam',
       sgoals: 9,
-      sresult: 'won'  
+      sresult: 'won',
+      id: 9  
     },
   ]);
 
     const navigate = useNavigate();
-    // Static data for games
-    // correct date
-    // new Date().toLocaleString();
+    
+    let newIdNumber = 9;
+
+    function idGene() {
+      
+      newIdNumber++;
+
+      staticGames.map(user => {
+        if (user.id == newIdNumber) {
+          newIdNumber++;
+        } else {
+          return newIdNumber;
+        }
+      });
+      return newIdNumber;
+    }
     
     let games: any = JSON.parse(localStorage.getItem('games') || '[]');
     
@@ -126,6 +149,7 @@ function Form() {
       sname: string
       sgoals: number
       sresult: string
+      id: number
     }
     const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
        e.preventDefault();
@@ -140,7 +164,8 @@ function Form() {
           fresult: result,
           sname: secondPlayer, 
           sgoals: secondPlayerGoals, 
-          sresult: secondPresult        
+          sresult: secondPresult,
+          id: newIdNumber        
         }
         let games: any = JSON.parse(localStorage.getItem('games') || '[]');
         // setStaticGames([...staticGames , gamePlayed])
